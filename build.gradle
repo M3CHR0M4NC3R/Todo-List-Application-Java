@@ -48,3 +48,4 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClassName = 'IP.TodoListApplication.Main'
+}
