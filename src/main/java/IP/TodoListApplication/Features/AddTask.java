@@ -4,6 +4,7 @@ import IP.TodoListApplication.DataSorting.*;
 import IP.TodoListApplication.App.*;
 
 import java.util.Scanner;
+import org.checkerframework.common.value.qual.ArrayLen;
 
 
 /**
@@ -81,12 +82,20 @@ public class AddTask extends Actions {
      */
     @Override
     public void executeAction(String command) {
-        String[] parts = command.split(",");
-        Task task = Task.buildTask(parts[0], parts[1], DateSorting.parseDate("dd-MM-yyyy", parts[2]),
+        String @ArrayLen(5) [] parts;
+	String [] temp = command.split(",");
+	if(temp.length==5){
+		parts=temp;
+	}else{
+		System.out.println("Task failed to be added, command did not split into 5 parts.");
+		return;
+	}
+	//readUserInput enforces the assumed array length
+	Task task = Task.buildTask(parts[0], parts[1], DateSorting.parseDate("dd-MM-yyyy", parts[2]),
                 parts[3], parts[4]);
 
         TodoList.tasks.put(task.getId(), task);
-        System.out.println("IP.TodoListApplication.App.Task successfully added!");
+        System.out.println("Task successfully added!");
 
     }
 }

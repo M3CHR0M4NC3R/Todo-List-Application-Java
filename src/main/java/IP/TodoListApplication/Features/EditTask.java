@@ -4,6 +4,7 @@ import IP.TodoListApplication.App.TodoList;
 import IP.TodoListApplication.DataSorting.DateSorting;
 
 import java.util.Scanner;
+import org.checkerframework.common.value.qual.ArrayLen;
 
 
 /**
@@ -97,7 +98,14 @@ public class EditTask extends Actions {
     @Override
     public void executeAction(String command) {
 
-        String[] parts = command.split(",");
+        String @ArrayLen(5) [] parts;
+	String[] temp = command.split(",");
+	if(temp.length==5){
+		parts=temp;
+	}else{
+		System.out.println("Task failed to be edited, command did not split into 5 parts.");
+		return;
+	}
 
         boolean isTaskEdited = false;
         if (!parts[1].equals("-")) {
