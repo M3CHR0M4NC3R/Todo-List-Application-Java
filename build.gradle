@@ -12,7 +12,24 @@ plugins {
 
     // Apply the application plugin to add support for building a CLI application.
     id 'application'
+	id 'org.checkerframework' version '0.6.40'
 }
+apply plugin: 'org.checkerframework'
+
+checkerFramework {
+	checkers = [
+	//"org.checkerframework.checker.nullness.NullnessChecker",
+	]
+}
+checkerFramework {
+  extraJavacArgs = [
+    '-Werror',
+	'-processor',
+'org.checkerframework.checker.index.IndexChecker'
+  ]
+}
+
+
 
 repositories {
     // Use jcenter for resolving dependencies.

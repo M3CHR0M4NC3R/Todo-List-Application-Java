@@ -8,6 +8,7 @@ import IP.TodoListApplication.Features.Actions;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import org.checkerframework.common.value.qual.ArrayLen;
 
 
 /**
@@ -69,7 +70,14 @@ public class ReadFromFile extends Actions {
             Scanner scanner = new Scanner(new File(path));
             while (scanner.hasNextLine()) {
                 String file = scanner.nextLine();
-                String[] parts = file.split(",");
+        	String @ArrayLen(5) [] parts;
+		String[] temp = file.split(",");
+		if(temp.length==5){
+			parts=temp;
+		}else{
+			System.out.println("Tasks failed to read, input did not split into 5 parts.");
+			return;
+		}
                 Task task = Task.buildTask(parts[0], parts[1], DateSorting.parseDate("dd-MM-yyyy", parts[2]),
                         parts[3], parts[4]);
                 if (TodoList.tasks.get(parts[0]) != null) {
